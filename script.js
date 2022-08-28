@@ -114,7 +114,8 @@ const eurowings = {
 };
 
 const book = lufthansa.book;
-//Does not work
+//Does not work like that
+//book(23,`Sarah Williams`)
 //Call method
 book.call(eurowings, 23, `Sarha Williams`);
 console.log(eurowings);
@@ -135,3 +136,48 @@ book.apply(swiss, flightData);
 console.log(swiss);
 
 book.call(swiss, ...flightData);
+
+//Bind method
+//book.call(eurowings, 23, `Sarha Williams`);
+
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, `Steven Williams`);
+
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23(`Mary Cooper`);
+bookEW23(`Martha Cooper`);
+
+//Bind with Event Listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
+};
+
+//lufthansa.buyPlane();
+
+document
+  .querySelector(`.buy`)
+  .addEventListener(`click`, lufthansa.buyPlane.bind(lufthansa));
+
+//Partial application
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+//addVat = value => value + value * 0.23
+console.log(addVAT(200));
+
+const addTax2 = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+const addVat2 = addTax2(0.23);
+console.log(addVat2(200));
+console.log(addVat2(23));
