@@ -52,28 +52,42 @@
 // newPassport(jonas);
 // checkIn(flight, jonas);
 
-const oneWord = function (str) {
-  return str.replace(/ /g, '').toLowerCase();
+// const oneWord = function (str) {
+//   return str.replace(/ /g, '').toLowerCase();
+// };
+// const upperFirstWord = function (str) {
+//   const [first, ...others] = str.split(` `);
+//   return [first.toUpperCase(), ...others].join(' ');
+// };
+
+// //High order function
+// const transformer = function (str, fn) {
+//   console.log(`Original string: ${str}`);
+//   console.log(`Transformed string: ${fn(str)}`);
+
+//   console.log(`Transfomed by: ${fn.name}`);
+// };
+
+// transformer(`JavaScript is the best!`, upperFirstWord);
+// transformer(`JavaScript is the best!`, oneWord);
+
+// const high5 = function () {
+//   console.log(`👋`);
+// };
+// document.body.addEventListener(`click`, high5);
+
+// [`Jonas`, `Martha`, `Adam`].forEach(high5);
+
+//Functions returning functon
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
 };
-const upperFirstWord = function (str) {
-  const [first, ...others] = str.split(` `);
-  return [first.toUpperCase(), ...others].join(' ');
-};
+const greetArr = greeting => name => console.log(`${greeting} ${name}`);
 
-//High order function
-const transformer = function (str, fn) {
-  console.log(`Original string: ${str}`);
-  console.log(`Transformed string: ${fn(str)}`);
+const greeterHey = greetArr(`Hey`);
+greeterHey(`Jonas`);
+greeterHey(`Steven`);
 
-  console.log(`Transfomed by: ${fn.name}`);
-};
-
-transformer(`JavaScript is the best!`, upperFirstWord);
-transformer(`JavaScript is the best!`, oneWord);
-
-const high5 = function () {
-  console.log(`👋`);
-};
-document.body.addEventListener(`click`, high5);
-
-[`Jonas`, `Martha`, `Adam`].forEach(high5);
+greetArr(`Hello`)(`Jonas`);
